@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>MindCare - Mental Wellness Tracker</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+body{font-family:Arial,sans-serif;margin:0;background:#f5f3fa;color:#333}
+header{background:#8e44ad;color:white;text-align:center;padding:25px}
+nav{background:#7d3c98;text-align:center;padding:10px}
+nav a{color:white;margin:0 15px;text-decoration:none;font-weight:bold;transition:.3s}
+nav a:hover{color:#f1c40f}
+section{max-width:900px;margin:auto;padding:30px}
+.card{background:white;padding:20px;margin-bottom:20px;border-radius:8px;box-shadow:0 0 12px rgba(0,0,0,.1)}
+h2{color:#7d3c98}
+select,textarea,button{width:100%;padding:10px;margin-top:10px;border-radius:5px;border:1px solid #ccc;font-size:16px}
+button{background:#8e44ad;color:white;border:none;cursor:pointer;font-weight:bold}
+button:hover{background:#7d3c98}
+.bar{background:#8e44ad;height:25px;margin:10px 0;color:white;text-align:right;padding-right:10px;border-radius:5px}
+footer{background:#8e44ad;color:white;text-align:center;padding:15px}
+@media(max-width:600px){nav a{display:block;margin:8px 0}}
+</style>
+</head>
+<body>
+<header>
+<h1>MindCare</h1>
+<p>Mental Wellness & Mood Tracker</p>
+</header>
+<nav>
+<a href="#about">About</a>
+<a href="#features">Features</a>
+<a href="#log">Mood Log</a>
+<a href="#overview">Overview</a>
+</nav>
+<section id="about">
+<div class="card">
+<h2>About MindCare</h2>
+<p>MindCare is a mental wellness tracking platform designed to help users monitor their daily moods and emotional health. By logging emotional states and reflecting on daily experiences, users can understand their patterns and maintain mental balance. The application emphasizes simplicity, accessibility, and visualization for effective self-awareness.</p>
+</div>
+</section>
+<section id="features">
+<div class="card">
+<h2>Key Features</h2>
+<ul>
+<li>Daily mood logging</li>
+<li>Simple note-taking for reflections</li>
+<li>Visual mood overview with dynamic bars</li>
+<li>User-friendly interface suitable for beginners</li>
+<li>Responsive and mobile-friendly design</li>
+</ul>
+</div>
+</section>
+<section id="log">
+<div class="card">
+<h2>Log Your Mood</h2>
+<form id="moodForm">
+<label>Select Your Mood</label>
+<select id="mood" required>
+<option value="">Choose mood</option>
+<option value="Happy">Happy 😊</option>
+<option value="Calm">Calm 😌</option>
+<option value="Stressed">Stressed 😟</option>
+<option value="Sad">Sad 😞</option>
+<option value="Energetic">Energetic ⚡</option>
+</select>
+<label>Notes (optional)</label>
+<textarea id="note" rows="4" placeholder="How are you feeling today?"></textarea>
+<button type="submit">Save Mood</button>
+</form>
+<p id="message" style="color:green;font-weight:bold;"></p>
+</div>
+</section>
+<section id="overview">
+<div class="card">
+<h2>Mood Overview</h2>
+<div class="bar" id="HappyBar" style="width:0%">Happy</div>
+<div class="bar" id="CalmBar" style="width:0%">Calm</div>
+<div class="bar" id="StressedBar" style="width:0%">Stressed</div>
+<div class="bar" id="SadBar" style="width:0%">Sad</div>
+<div class="bar" id="EnergeticBar" style="width:0%">Energetic</div>
+</div>
+</section>
+<footer>
+<p>© 2026 MindCare | Frontend Web Development Project</p>
+</footer>
+<script>
+const moods={Happy:0,Calm:0,Stressed:0,Sad:0,Energetic:0};
+document.getElementById("moodForm").addEventListener("submit",function(e){
+e.preventDefault();
+const mood=document.getElementById("mood").value;
+const note=document.getElementById("note").value;
+if(mood){moods[mood]++;updateBars();
+document.getElementById("message").innerText=`Mood "${mood}" logged successfully! Keep tracking your mental health. 💜`;
+document.getElementById("mood").value="";document.getElementById("note").value=""}
+});
+function updateBars(){
+const total=Object.values(moods).reduce((a,b)=>a+b,0)||1;
+for(const mood in moods){const percentage=(moods[mood]/total)*100;
+document.getElementById(mood+"Bar").style.width=percentage+"%";
+document.getElementById(mood+"Bar").innerText=mood+" "+moods[mood]}
+}
+</script>
+</body>
+</html>
